@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id           String         @id @default(uuid())
+  name         String
+  email        String         @unique
+  password     String?
+  status       String
+  image        String?
+  teams        teams[]
+  team_members team_members[]
+  projects     projects[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+}
+
+model teams {
+  id          String         @id @default(uuid())
+  name        String
+  description String?
+  owner_id    users          @relation(fields: [user_id], references: [id])
+  user_id     String
+  members     team_members[]
+  projects    projects[]
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model team_members {
+  id        String   @id @default(uuid())
+  user      users    @relation(fields: [user_id], references: [id])
+  user_id   String
+  team      teams    @relation(fields: [team_id], references: [id])
+  team_id   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model projects {
+  id        String   @id @default(uuid())
+  name      String
+  url       String
+  owner_id  users    @relation(fields: [user_id], references: [id])
+  user_id   String
+  team      teams    @relation(fields: [team_id], references: [id])
+  team_id   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
