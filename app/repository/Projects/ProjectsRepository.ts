@@ -14,6 +14,9 @@ const ProjectsRepository = {
       where: {
         user_id: id
       },
+      include: {
+        team: true,
+      }
     })
   },
   create: async function (project: IProject) {

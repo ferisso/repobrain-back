@@ -13,7 +13,7 @@ routes.post('/users', UsersController.post)
 routes.put('/users', UsersController.put)
 routes.delete('/users/:id', UsersController.delete)
 
-// projects
+// Teams
 routes.get('/teams/:id', TeamsController.get)
 routes.post('/teams', TeamsController.post)
 routes.put('/teams', TeamsController.put)
