@@ -19,6 +19,13 @@ const ProjectsRepository = {
       }
     })
   },
+  listAll: async function (query: IProject) {
+    return await prisma.projects.findMany({
+      where: {
+        ...query
+      }
+    })
+  },
   create: async function (project: IProject) {
     return await prisma.projects.create({
       data: {

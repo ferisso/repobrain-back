@@ -28,7 +28,7 @@ model teams {
   id          String         @id @default(uuid())
   name        String
   description String?
-  owner_id    users          @relation(fields: [user_id], references: [id])
+  owner_id    users          @relation(fields: [user_id], references: [id], onDelete: Cascade)
   user_id     String
   members     team_members[]
   projects    projects[]
@@ -50,9 +50,9 @@ model projects {
   id        String   @id @default(uuid())
   name      String
   url       String
-  owner_id  users    @relation(fields: [user_id], references: [id])
+  owner_id  users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
   user_id   String
-  team      teams    @relation(fields: [team_id], references: [id])
+  team      teams    @relation(fields: [team_id], references: [id], onDelete: Cascade)
   team_id   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

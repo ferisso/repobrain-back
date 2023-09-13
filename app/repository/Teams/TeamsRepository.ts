@@ -37,6 +37,9 @@ const TeamsRepository = {
     return await prisma.teams.delete({
       where: {
         id: id
+      },
+      include: {
+        projects: true,
       }
     })
   }
