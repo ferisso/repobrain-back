@@ -1,48 +1,68 @@
-import { teams } from "@prisma/client"
-import { prisma } from "../../prisma"
-import { ITeam } from "../../types/interfaces"
+import { teams } from "@prisma/client";
+import { prisma } from "../../prisma";
+import { ITeam } from "../../types/interfaces";
 
 const TeamsRepository = {
   list: async function (id: string) {
     return await prisma.teams.findMany({
       where: {
-        user_id: id
+        user_id: id,
       },
       include: {
-        members: true
-      }
-    })
+        members: {
+          include: {
+            user: {
+              select: {
+                id: true,
+                name: true,
+                email: true,
+                image: true,
+              },
+            },
+          },
+        },
+      },
+    });
   },
   create: async function (team: ITeam) {
-    return await prisma.teams.create({
+    const newTeam = await prisma.teams.create({
       data: {
         name: team.name,
         description: team.description,
-        user_id: team.user_id
-      }
-    })
+        user_id: team.user_id,
+      },
+    });
+
+    await prisma.team_members.create({
+      data: {
+        team_id: newTeam.id,
+        user_id: newTeam.user_id,
+      },
+    });
+
+    return newTeam;
   },
-  update: async function(team: ITeam) {
+  update: async function (team: ITeam) {
     return await prisma.teams.update({
       data: {
         name: team.name,
         description: team.description,
       },
       where: {
-        id: team.id
-      }
-    })
+        id: team.id,
+      },
+    });
   },
-  delete: async function(id: string) {
+  delete: async function (id: string) {
     return await prisma.teams.delete({
       where: {
-        id: id
+        id: id,
       },
       include: {
         projects: true,
-      }
-    })
-  }
-}
+      },
+    });
+  },
+};
 
-export default TeamsRepository
+export default TeamsRepository;

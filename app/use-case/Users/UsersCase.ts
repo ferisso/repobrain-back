@@ -40,6 +40,7 @@ const UsersCase = {
       return await UsersRepository.create({
         name: user.name,
         email: user.email,
+        image: user.image,
         password: hashedPassword
       })
     }
@@ -47,6 +48,7 @@ const UsersCase = {
     return await UsersRepository.create({
       name: user.name,
       email: user.email,
+      image: user.image
     })
 
   },
