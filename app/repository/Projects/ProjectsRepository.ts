@@ -9,13 +9,27 @@ interface IProject {
 }
 
 const ProjectsRepository = {
-  list: async function (id: string) {
+  list: async function (userId: string) {
     return await prisma.projects.findMany({
       where: {
-        user_id: id
+       team: {
+        members: {
+          some: {
+            user_id: userId
+          }
+        }
+       }
       },
       include: {
-        team: true,
+        team: {
+          include: {
+            members: {
+              include: {
+                user: true
+              }
+            }
+          }
+        }
       }
     })
   },

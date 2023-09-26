@@ -8,6 +8,9 @@ const TeamsRepository = {
     return await prisma.team_members.findMany({
       where: {
         team_id: id,
+      },
+      include: {
+        user: true
       }
     })
   },

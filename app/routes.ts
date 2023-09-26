@@ -2,8 +2,9 @@ import { Router } from "express";
 import UsersController from "./controller/Users/UsersController";
 import LoginController from "./controller/Login/LoginController";
 import TeamsController from "./controller/Teams/TeamsController";
-import TeamMembersController from './controller/TeamMember/TeamMemberController'
 import ProjectsController from "./controller/Projects/ProjectsContoller";
+import TeamMembersController from './controller/TeamMember/TeamMemberController'
+import BoardsController from "./controller/Boards/BoardsController";
 
 const routes = Router()
 
@@ -31,6 +32,12 @@ routes.get('/members/:id', TeamMembersController.get)
 routes.post('/members', TeamMembersController.post)
 routes.put('/members', TeamMembersController.put)
 routes.delete('/members/:id', TeamMembersController.delete)
+
+// Boards
+routes.get('/boards/:id', BoardsController.get)
+routes.post('/boards', BoardsController.post)
+routes.put('/boards', BoardsController.put)
+routes.delete('/boards/:id', BoardsController.delete)
 
 // login
 routes.post('/login', LoginController.post)

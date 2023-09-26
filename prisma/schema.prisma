@@ -11,17 +11,19 @@ datasource db {
 }
 
 model users {
-  id           String         @id @default(uuid())
-  name         String
-  email        String         @unique
-  password     String?
-  status       String
-  image        String?
-  teams        teams[]
-  team_members team_members[]
-  projects     projects[]
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
+  id             String         @id @default(uuid())
+  name           String
+  email          String         @unique
+  password       String?
+  status         String
+  image          String?
+  teams          teams[]
+  team_members   team_members[]
+  projects       projects[]
+  boardsReporter boards[]       @relation("reporter")
+  boardsAssignee boards[]       @relation("assignee")
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
 }
 
 model teams {
@@ -54,6 +56,35 @@ model projects {
   user_id   String
   team      teams    @relation(fields: [team_id], references: [id], onDelete: Cascade)
   team_id   String
+  boards    boards[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model boards {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  owner_id    users    @relation("reporter", fields: [reporter], references: [id], onDelete: Cascade)
+  reporter    String
+  to          users    @relation("assignee", fields: [assignee], references: [id], onDelete: Cascade)
+  assignee    String
+  status      String   @default("TODO")
+  // status      BoardStatus   @default(TODO) --- When change for postgreSQL change to ENUM
+  points      Int?
+  issue       Int?
+  label       String?
+  project     projects @relation(fields: [project_id], references: [id], onDelete: Cascade)
+  project_id  String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// enum BoardStatus {
+//   BLOCKED
+//   TODO
+//   INPROGRESS
+//   CODE
+//   READY
+//   DONE
+// }

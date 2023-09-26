@@ -26,3 +26,13 @@ export interface IProjects {
   user_id: string,
   team_id: string
 }
+
+export interface IAllowedStatus {
+  BLOCKED: number,
+  TODO: number,
+  INPROGRESS: number,
+  CODE: number,
+  READY: number,
+  DONE: number
+}
+
