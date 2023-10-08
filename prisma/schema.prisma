@@ -65,9 +65,9 @@ model boards {
   id          String   @id @default(uuid())
   title       String
   description String?
-  owner_id    users    @relation("reporter", fields: [reporter], references: [id], onDelete: Cascade)
+  reporter_info    users    @relation("reporter", fields: [reporter], references: [id], onDelete: Cascade)
   reporter    String
-  to          users    @relation("assignee", fields: [assignee], references: [id], onDelete: Cascade)
+  assignee_info          users    @relation("assignee", fields: [assignee], references: [id], onDelete: Cascade)
   assignee    String
   status      String   @default("TODO")
   // status      BoardStatus   @default(TODO) --- When change for postgreSQL change to ENUM

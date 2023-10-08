@@ -15,7 +15,7 @@ const allowedStatus: any = {
 
 const BoardsCase = {
   list: async function(id: string) {
-    const boards = await BoardsRepository.list(id)
+    let boards = await BoardsRepository.list(id)
 
     const boardStatusCase = (board: string): number => {
       const status = allowedStatus[board]
@@ -25,6 +25,12 @@ const BoardsCase = {
       }
       return status
     }
+
+    console.log(boards)
+
+    if (!boards.length) {
+      boards = await BoardsRepository.listBoardInfo(id)
+    } 
 
     const returnedBoards = boards.map(board => {
       return {
@@ -36,19 +42,23 @@ const BoardsCase = {
     return returnedBoards
   },
   create: async function(board: boards) {
-
-    const isAllowedStatus: keyof IAllowedStatus = allowedStatus[board.status]
-
-    if (!isAllowedStatus) {
-      throw CustomError({
-        status: 400,
-        msg: "Provide the right status"
-      })
-    }
-
+    board.status = "TODO"
     return await BoardsRepository.create(board)
   },
   update: async function(board: boards) {
+    const statusList = Object.keys(allowedStatus)
+
+    const allowed = statusList.find((status, index) => index == Number(board.status))
+   
+    if (!allowed) {
+      throw CustomError({
+        msg: 'Provide de right status',
+        status: 400
+      })
+    }
+
+    board.status = allowed
+
     return await BoardsRepository.update(board)
   },
   delete: async function(id: string) {

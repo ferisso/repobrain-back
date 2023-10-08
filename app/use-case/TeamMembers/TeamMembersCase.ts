@@ -9,7 +9,6 @@ const TeamsCase = {
   create: async function(team: team_members) {
     
     const userExists = await TeamMembersRepository.listQuery(team)
-    console.log(userExists)
     if (userExists && userExists.length) {
       return
     }

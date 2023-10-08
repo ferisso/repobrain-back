@@ -3,14 +3,15 @@
 import { team_members, teams } from "@prisma/client"
 import { prisma } from "../../prisma"
 
-const TeamsRepository = {
+const TeamMembersRepository = {
   list: async function (id: string): Promise<team_members[]> {
     return await prisma.team_members.findMany({
       where: {
         team_id: id,
       },
       include: {
-        user: true
+        user: true,
+        team: true
       }
     })
   },
@@ -48,4 +49,4 @@ const TeamsRepository = {
   }
 }
 
-export default TeamsRepository
+export default TeamMembersRepository
