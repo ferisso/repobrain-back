@@ -3,19 +3,11 @@
 import { boards } from "@prisma/client"
 import { prisma } from "../../prisma"
 
-interface IProject {
-  id?: string
-  name: string,
-  url: string,
-  user_id: string,
-  team_id: string
-}
-
 const BoardsRepository = {
-  list: async function (projectId: string) {
+  async listAllByFilters(boardFilters: boards) {
     return await prisma.boards.findMany({
       where: {
-        project_id: projectId
+        ...boardFilters,
       },
       include: {
         reporter_info: true,
@@ -35,7 +27,7 @@ const BoardsRepository = {
       } 
     })
   },
-  create: async function (board: boards) {
+  async create(board: boards) {
     return await prisma.boards.create({
       data: {
         title: board.title,
@@ -44,10 +36,11 @@ const BoardsRepository = {
         project_id: board.project_id,
         points: board.points,
         issue: board.issue,
+        label: board.label
       }
     })
   },
-  update: async function(board: boards) {
+  async update(board: boards) {
     return await prisma.boards.update({
       data: {
         title: board.title,
@@ -65,7 +58,7 @@ const BoardsRepository = {
     })
     .catch(err => console.log(err))
   },
-  delete: async function(boardId: string) {
+  async delete(boardId: string) {
     return await prisma.boards.delete({
       where: {
         id: boardId

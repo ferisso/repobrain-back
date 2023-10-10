@@ -34,7 +34,8 @@ routes.put('/members', TeamMembersController.put)
 routes.delete('/members/:id', TeamMembersController.delete)
 
 // Boards
-routes.get('/boards/:id', BoardsController.get)
+routes.get('/boards/:id', BoardsController.getId)
+routes.get('/boards', BoardsController.get)
 routes.post('/boards', BoardsController.post)
 routes.put('/boards', BoardsController.put)
 routes.delete('/boards/:id', BoardsController.delete)
