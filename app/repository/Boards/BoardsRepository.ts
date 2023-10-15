@@ -49,16 +49,16 @@ const BoardsRepository = {
   async update(board: boards) {
     return await prisma.boards.update({
       data: {
-        title: board.title,
-        description: board.description,
-        assignee: board.assignee,
-        reporter: board.reporter,
-        project_id: board.project_id,
-        priority: board.priority,
-        points: board.points,
-        issue_id: board.issue_id,
-        issue_url: board.issue_url,
-        status: board.status
+        title: board?.title,
+        description: board?.description,
+        assignee: board?.assignee,
+        reporter: board?.reporter,
+        project_id: board?.project_id,
+        priority: board?.priority,
+        points: board?.points,
+        issue_id: board?.issue_id,
+        issue_url: board?.issue_url,
+        status: board?.status
       },
       where: {
         id: board.id

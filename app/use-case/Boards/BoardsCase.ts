@@ -53,20 +53,21 @@ const BoardsCase = {
   },
 
   async update(board: boards) {
-    const statusList = Object.keys(allowedStatus);
-
-    const allowed = statusList.find(
-      (status, index) => index == Number(board.status)
-    );
-
-    if (!allowed) {
-      throw CustomError({
-        msg: "Provide de right status",
-        status: 400,
-      });
+    if (board.status) {
+      const statusList = Object.keys(allowedStatus);
+  
+      const allowed = statusList.find(
+        (status, index) => index == Number(board.status)
+      );
+  
+      if (!allowed) {
+        throw CustomError({
+          msg: "Provide de right status",
+          status: 400,
+        });
+      }
+      board.status = allowed;
     }
-
-    board.status = allowed;
 
     return await BoardsRepository.update(board);
   },
