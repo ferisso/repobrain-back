@@ -46,6 +46,9 @@ const BoardsCase = {
 
   async create(board: boards) {
     board.status = "TODO";
+    if (!board.priority) {
+      board.priority = 0
+    }
     return await BoardsRepository.create(board);
   },
 

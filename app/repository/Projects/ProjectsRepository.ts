@@ -5,7 +5,8 @@ interface IProject {
   name: string,
   url: string,
   user_id: string,
-  team_id: string
+  team_id: string,
+  owner_name?: string,
 }
 
 const ProjectsRepository = {
@@ -46,7 +47,8 @@ const ProjectsRepository = {
         name: project.name,
         url: project.url,
         user_id: project.user_id,
-        team_id: project.team_id
+        team_id: project.team_id,
+        owner_name: project.owner_name
       }
     })
   },

@@ -12,7 +12,10 @@ const BoardsRepository = {
       include: {
         reporter_info: true,
         assignee_info: true
-      } 
+      },
+      orderBy: {
+       priority: 'desc' 
+      }
     })
   },
   async listBoardInfo(boardId: string) {
@@ -31,11 +34,14 @@ const BoardsRepository = {
     return await prisma.boards.create({
       data: {
         title: board.title,
+        description: board.description,
         assignee: board.assignee,
         reporter: board.reporter,
         project_id: board.project_id,
+        priority: board.priority,
         points: board.points,
-        issue: board.issue,
+        issue_id: board.issue_id,
+        issue_url: board.issue_url,
         label: board.label
       }
     })
@@ -48,8 +54,10 @@ const BoardsRepository = {
         assignee: board.assignee,
         reporter: board.reporter,
         project_id: board.project_id,
+        priority: board.priority,
         points: board.points,
-        issue: board.issue,
+        issue_id: board.issue_id,
+        issue_url: board.issue_url,
         status: board.status
       },
       where: {

@@ -52,6 +52,7 @@ model projects {
   id        String   @id @default(uuid())
   name      String
   url       String
+  owner_name String
   owner_id  users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
   user_id   String
   team      teams    @relation(fields: [team_id], references: [id], onDelete: Cascade)
@@ -70,10 +71,12 @@ model boards {
   assignee_info          users    @relation("assignee", fields: [assignee], references: [id], onDelete: Cascade)
   assignee    String
   status      String   @default("TODO")
+  priority    Int      @default(0)
   // status      BoardStatus   @default(TODO) --- When change for postgreSQL change to ENUM
   points      Int?
-  issue       Int?
   label       String?
+  issue_id    String?
+  issue_url   String?
   project     projects @relation(fields: [project_id], references: [id], onDelete: Cascade)
   project_id  String
   createdAt   DateTime @default(now())
