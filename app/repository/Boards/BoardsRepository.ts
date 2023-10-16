@@ -58,7 +58,8 @@ const BoardsRepository = {
         points: board?.points,
         issue_id: board?.issue_id,
         issue_url: board?.issue_url,
-        status: board?.status
+        status: board?.status,
+        label: board?.label
       },
       where: {
         id: board.id
