@@ -6,7 +6,7 @@ interface IProject {
   url: string,
   user_id: string,
   team_id: string,
-  owner_name?: string,
+  owner_name: string,
 }
 
 const ProjectsRepository = {
