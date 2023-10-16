@@ -11,7 +11,13 @@ const BoardsRepository = {
       },
       include: {
         reporter_info: true,
-        assignee_info: true
+        assignee_info: true,
+        project: {
+          select: {
+            name: true,
+            owner_name: true,
+          }
+        }
       },
       orderBy: {
        priority: 'desc' 
@@ -42,6 +48,7 @@ const BoardsRepository = {
         points: board.points,
         issue_id: board.issue_id,
         issue_url: board.issue_url,
+        issue_number: board.issue_number,
         label: board.label
       }
     })
@@ -58,6 +65,7 @@ const BoardsRepository = {
         points: board?.points,
         issue_id: board?.issue_id,
         issue_url: board?.issue_url,
+        issue_number: board?.issue_number,
         status: board?.status,
         label: board?.label
       },

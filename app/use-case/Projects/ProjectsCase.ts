@@ -6,9 +6,9 @@ const ProjectsCase = {
   list: async function(id: string) {
     return await ProjectsRepository.list(id)
   },
-  create: async function(team: IProjects) {
+  create: async function(project: IProjects) {
 
-    const projectExists = await ProjectsRepository.listAll(team)
+    const projectExists = await ProjectsRepository.listAll(project)
 
     if (!!projectExists.length) {
       throw CustomError({
@@ -17,10 +17,10 @@ const ProjectsCase = {
       })
     }
 
-    return await ProjectsRepository.create(team)
+    return await ProjectsRepository.create(project)
   },
-  update: async function(team: IProjects) {
-    return await ProjectsRepository.update(team)
+  update: async function(project: IProjects) {
+    return await ProjectsRepository.update(project)
   },
   delete: async function(id: string) {
     return await ProjectsRepository.delete(id)

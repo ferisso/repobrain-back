@@ -22,6 +22,7 @@ export interface ITeam {
 export interface IProjects {
   id?: string
   name: string,
+  owner_name: string,
   url: string,
   user_id: string,
   team_id: string

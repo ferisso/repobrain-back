@@ -77,6 +77,7 @@ model boards {
   label       String?
   issue_id    String?
   issue_url   String?
+  issue_number String?
   project     projects @relation(fields: [project_id], references: [id], onDelete: Cascade)
   project_id  String
   createdAt   DateTime @default(now())
