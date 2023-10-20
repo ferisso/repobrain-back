@@ -18,3 +18,5 @@ app.listen(3001, () => {
   console.log('\x1b[32m', 'http://localhost:3001');
   console.log('\x1b[0m');
 })
+
+export default app
