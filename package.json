@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev ./app/server.ts",
-    "postinstall": "primsa generate"
+    "postinstall": "primsa generate",
+    "build": "rimraf ./build && tsc"
   },
   "author": "",
   "license": "ISC",
